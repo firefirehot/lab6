@@ -133,7 +133,7 @@ int main(void) {
 	TimerSet(1000);
 	TimerOn();
 
-	state = L1;
+	state = Start;
 
     while (1) {
 	Tick();
