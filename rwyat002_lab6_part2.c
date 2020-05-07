@@ -87,7 +87,7 @@ ISR(TIMER1_COMPA_vect)
 //	volatile unsigned char TimerFlag = 0;
 //        void TimerISR() {TimerFlag = 1;}
 	unsigned char left = 0;;
-	unsigned char uctimer = 0;
+	//unsigned char uctimer = 0;
 
 
 	void Tick(){
@@ -96,60 +96,48 @@ ISR(TIMER1_COMPA_vect)
 		state = L1;
 		break;
 		case L1:
-		if((~PINA & 0x01)){
-			uctimer = 0;
+		if(((~PINA & 0x01) == 0x01)){
+	//		uctimer = 0;
 			state = freeze;
 		}
-		else if ((uctimer >= 2)){
-			uctimer = 0;
-			state = L2;
-		}
 		else
-			state = L1;
+			state = L2;
 	
 		
 		break;
 
 		case L2:
-		if((~PINA & 0x01)){
-                        uctimer = 0;
+		if(((~PINA & 0x01) == 0x01)){
+          //              uctimer = 0;
                         state = freeze;
                 }
-                else if ((uctimer >= 2)){
-			uctimer = 0;
-                        if((left & 0x01))
+                else
+                         if((left & 0x01))
 				state = L3;
 			else
 				state = L1;
-                }
-                else
-                        state = L2;
 
 		break;
 
 		case L3:
-		if((~PINA & 0x01)){
+		if(((~PINA & 0x01) == 0x01)){
                         uctimer = 0;
                         state = freeze;
                 }
-                else if ((uctimer >= 2)){
-			uctimer = 0;
-                        state = L2;
-                }
                 else
-                        state = L3;
+                        state = L2;
 
 		break;
 
 		case freeze:
-		if((~PINA & 0x01))
+		if(((~PINA & 0x01) == 0x01))
 			state = freeze;
 		else
 			state = repeate;
 		break;
 		case repeate:
-		if((~PINA & 0x01)){
-			uctimer = 0;
+		if(((~PINA & 0x01) == 0x01)){
+		//	uctimer = 0;
 			state = init;
 		}
 		else
@@ -190,12 +178,12 @@ int main(void) {
        DDRB = 0xFF;PORTB = 0x00;	
 	
 
-	TimerSet(150);
+	TimerSet(300);
 	TimerOn();
 
 	state = init;
 	left = 0x01;
-	uctimer = 0;
+	//uctimer = 0;
 
     while (1) {
 	Tick();
