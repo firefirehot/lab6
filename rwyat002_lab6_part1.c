@@ -110,6 +110,9 @@ ISR(TIMER1_COMPA_vect)
 	
 	}
 	switch(state){
+		case Start:
+		break;
+			
 		case L1:
 			PORTB = 0x01;
 		break;
