@@ -121,7 +121,7 @@ ISR(TIMER1_COMPA_vect)
 
 		case L3:
 		if(((~PINA & 0x01) == 0x01)){
-                        uctimer = 0;
+     //                   uctimer = 0;
                         state = freeze;
                 }
                 else
@@ -152,16 +152,16 @@ ISR(TIMER1_COMPA_vect)
 		case L1:
 			left = 0x01;
 			PORTB = 0x01;
-			uctimer++;
+	//		uctimer++;
 		break;
 		case L2:
 			PORTB = 0x02;
-			uctimer++;
+	//		uctimer++;
 		break;
 		case L3:
 			left = 0x00;
 			PORTB = 0x04;
-			uctimer++;
+	//		uctimer++;
 		break;
 		case freeze:
 		break;
