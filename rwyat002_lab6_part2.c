@@ -98,7 +98,7 @@ ISR(TIMER1_COMPA_vect)
 		break;
 		case L1:
 
-		if(((~PINA & 0x01) == 0x01) & ((relax & 0x01) == 0x01))){
+		if(((~PINA & 0x01) == 0x01) && ((relax & 0x01) == 0x01)){
 	//		uctimer = 0;
 			state = freeze;
 		}
@@ -109,7 +109,7 @@ ISR(TIMER1_COMPA_vect)
 		break;
 
 		case L2:
-		if(((~PINA & 0x01) == 0x01) & ((relax & 0x01) == 0x01)){
+		if(((~PINA & 0x01) == 0x01) && ((relax & 0x01) == 0x01)){
           //              uctimer = 0;
                         state = freeze;
                 }
@@ -122,7 +122,7 @@ ISR(TIMER1_COMPA_vect)
 		break;
 
 		case L3:
-		if(((~PINA & 0x01) == 0x01) & ((relax & 0x01) == 0x01)){
+		if(((~PINA & 0x01) == 0x01) && ((relax & 0x01) == 0x01)){
      //                   uctimer = 0;
                         state = freeze;
                 }
