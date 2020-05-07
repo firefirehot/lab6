@@ -82,7 +82,7 @@ ISR(TIMER1_COMPA_vect)
 
 
 
-	enum States{L1,L2,L3,freeze,repeate}state;
+	enum States{init,L1,L2,L3,freeze,repeate}state;
 	
 //	volatile unsigned char TimerFlag = 0;
 //        void TimerISR() {TimerFlag = 1;}
@@ -92,6 +92,9 @@ ISR(TIMER1_COMPA_vect)
 
 	void Tick(){
 	switch(state){
+		case init:
+		state = L1;
+		break;
 		case L1:
 		if((~PINA & 0x01)){
 			uctimer = 0;
@@ -147,7 +150,7 @@ ISR(TIMER1_COMPA_vect)
 		case repeate:
 		if((~PINA & 0x01)){
 			uctimer = 0;
-			state = L1;
+			state = init;
 		}
 		else
 			state = repeate;
@@ -156,6 +159,8 @@ ISR(TIMER1_COMPA_vect)
 	
 	}
 	switch(state){
+		case init:
+		break;
 		case L1:
 			left = 0x01;
 			PORTB = 0x01;
@@ -188,7 +193,7 @@ int main(void) {
 	TimerSet(150);
 	TimerOn();
 
-	state = L1;
+	state = init;
 	left = 0x01;
 	uctimer = 0;
 
