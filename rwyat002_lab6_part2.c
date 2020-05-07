@@ -82,7 +82,7 @@ ISR(TIMER1_COMPA_vect)
 
 
 
-	enum States{L1,L2,L3,freeze}state;
+	enum States{L1,L2,L3,freeze,repeate}state;
 	
 //	volatile unsigned char TimerFlag = 0;
 //        void TimerISR() {TimerFlag = 1;}
@@ -140,9 +140,16 @@ ISR(TIMER1_COMPA_vect)
 
 		case freeze:
 		if((~PINA & 0x01))
+			state = freeze;
+		else
+			state = repeate;
+		break;
+		case repeate:
+		if((~PINA & 0x01))
+			uctimer = 0;
 			state = L1;
 		else
-			state = freeze;
+			state = repeate;
 		break;
 	
 	
@@ -163,7 +170,8 @@ ISR(TIMER1_COMPA_vect)
 			uctimer++;
 		break;
 		case freeze:
-
+		break;
+		case repeate:
 		break;
 	}
 	}
