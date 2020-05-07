@@ -81,7 +81,7 @@ ISR(TIMER1_COMPA_vect)
 
 
 
-	enum States{L1,L2,L3}state;
+	enum States{Start,L1,L2,L3}state;
 	
 //	volatile unsigned char TimerFlag = 0;
 //        void TimerISR() {TimerFlag = 1;}
@@ -91,6 +91,10 @@ ISR(TIMER1_COMPA_vect)
 
 	void Tick(){
 	switch(state){
+		case Start:
+		state = L1;
+		break;
+			
 		case L1:
 		state = L2;
 		break;
