@@ -136,7 +136,7 @@ int main(void) {
 	TimerSet(1000);
 	TimerOn();
 
-	state = L3;
+	state = Start;
 
     while (1) {
 	Tick();
