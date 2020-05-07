@@ -100,7 +100,7 @@ ISR(TIMER1_COMPA_vect)
 			uctimer = 0;
 			state = freeze;
 		}
-		else if ((uctimer > 2)){
+		else if ((uctimer >= 2)){
 			uctimer = 0;
 			state = L2;
 		}
@@ -115,7 +115,7 @@ ISR(TIMER1_COMPA_vect)
                         uctimer = 0;
                         state = freeze;
                 }
-                else if ((uctimer > 2)){
+                else if ((uctimer >= 2)){
 			uctimer = 0;
                         if((left & 0x01))
 				state = L3;
@@ -132,7 +132,7 @@ ISR(TIMER1_COMPA_vect)
                         uctimer = 0;
                         state = freeze;
                 }
-                else if ((uctimer > 2)){
+                else if ((uctimer >= 2)){
 			uctimer = 0;
                         state = L2;
                 }
