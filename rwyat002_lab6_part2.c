@@ -88,6 +88,7 @@ ISR(TIMER1_COMPA_vect)
 //        void TimerISR() {TimerFlag = 1;}
 	unsigned char left = 0;;
 	//unsigned char uctimer = 0;
+	unsigned char relax = 0x01;
 
 
 	void Tick(){
@@ -96,7 +97,8 @@ ISR(TIMER1_COMPA_vect)
 		state = L1;
 		break;
 		case L1:
-		if(((~PINA & 0x01) == 0x01)){
+
+		if(((~PINA & 0x01) == 0x01) & ((relax & 0x01) == 0x01))){
 	//		uctimer = 0;
 			state = freeze;
 		}
@@ -107,7 +109,7 @@ ISR(TIMER1_COMPA_vect)
 		break;
 
 		case L2:
-		if(((~PINA & 0x01) == 0x01)){
+		if(((~PINA & 0x01) == 0x01) & ((relax & 0x01) == 0x01)){
           //              uctimer = 0;
                         state = freeze;
                 }
@@ -120,7 +122,7 @@ ISR(TIMER1_COMPA_vect)
 		break;
 
 		case L3:
-		if(((~PINA & 0x01) == 0x01)){
+		if(((~PINA & 0x01) == 0x01) & ((relax & 0x01) == 0x01)){
      //                   uctimer = 0;
                         state = freeze;
                 }
@@ -138,7 +140,8 @@ ISR(TIMER1_COMPA_vect)
 		case repeate:
 		if(((~PINA & 0x01) == 0x01)){
 		//	uctimer = 0;
-			state = init;
+			relax = 0x00;
+			state = L1;
 		}
 		else
 			state = repeate;
@@ -150,15 +153,24 @@ ISR(TIMER1_COMPA_vect)
 		case init:
 		break;
 		case L1:
+			if(((~PINA & 0x01) == 0x00)){
+			relax = 0x01;
+			}
 			left = 0x01;
 			PORTB = 0x01;
 	//		uctimer++;
 		break;
 		case L2:
+			if(((~PINA & 0x01) == 0x00)){
+			relax = 0x01;
+			}
 			PORTB = 0x02;
 	//		uctimer++;
 		break;
 		case L3:
+			if(((~PINA & 0x01) == 0x00)){
+			relax = 0x01;
+			}
 			left = 0x00;
 			PORTB = 0x04;
 	//		uctimer++;
@@ -183,6 +195,7 @@ int main(void) {
 
 	state = init;
 	left = 0x01;
+	relax = 0x01;
 	//uctimer = 0;
 
     while (1) {
