@@ -145,9 +145,10 @@ ISR(TIMER1_COMPA_vect)
 			state = repeate;
 		break;
 		case repeate:
-		if((~PINA & 0x01))
+		if((~PINA & 0x01)){
 			uctimer = 0;
 			state = L1;
+		}
 		else
 			state = repeate;
 		break;
